@@ -4,6 +4,7 @@ def main():
 	numOne = random.randint (0, 1)
 	numTwo = random.randint (0, 1)
 	
+	# Define variables and calculate for the unknown
 	if numOne == 0:
 		x = random.randint (1, 20)
 	else:
@@ -20,10 +21,12 @@ def main():
 	
 	answer = (x * unknown) + y
 	
+	# Display finished equation for solving
 	print (str(x) + " * " + ' X ' + " + " + str(y) + " = " + str(answer))
 	
 	answer_x = input("What is X? ")
 	
+	# Check input against answer and respond
 	if int(answer_x) == unknown:
 	  print ("Good job!")
 	else:
