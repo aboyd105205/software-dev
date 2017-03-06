@@ -13,7 +13,7 @@ class Equation:
 	@abstractmethod
 	def toString(self):
 		pass
-	
+
 
 # f(x) = mx + b
 # this version solves for x
@@ -30,6 +30,7 @@ class LinearEquationX(Equation):
 	def toString(self):
 		return '{0} = {1}*x + {2}'.format( *(self.known, self.slope, self.offset) )
 
+
 # f(x) = mx + b
 # this version solves for f(x)
 class LinearEquationY(Equation):
@@ -45,7 +46,6 @@ class LinearEquationY(Equation):
 	def toString(self):
 		return 'f(x) = {0}*{1} + {2}'.format( *(self.slope, self.known, self.offset) )
 
-# 
 
 # (x-h)^2 + (y-k)^2 = r^2\
 # solves for y with a vertical line
@@ -63,8 +63,41 @@ class CircleVerticleLineEquation(Equation):
 	
 	def toString(self):
 		return '({0} - {1})^2 + (y-{2})^2 = {3}^2'.format( *(self.lineX, self.h, self.k, self.radius) )
-	
 
+		
+# an equation of the type f(x) = mx^2 + b
+# this solves for x
+class QuadraticEquationX(Equation):
+	
+	def __init__(self, m, b, fx):
+		self.slope = m
+		self.offset = b
+		self.known = fx
+		
+	def solve(self):
+		temp = math.sqrt(((self.known - self.offset) / self.slope))
+		return (temp, -temp)
+		
+	def toString(self):
+		return '{0} = {1}*x ^2 + {2}'.format( *( self.known, self.slope, self.offset) )
+
+		
+# an equation of the type f(x) = mx^2 + b
+# this solves for f(x)
+class QuadraticEquationY(Equation):
+
+	def __init__(self, m, b, x):
+		self.slope = m
+		self.offset = b
+		self.known = x
+		
+	def solve(self):
+		return (self.known ** 2) * self.slope + self.offset
+		
+	def toString(self):
+		return 'f(x) = {0}*{1}^2 + {2}'.format( *( self.slope, self.known, self.offset) )
+
+		
 # class SineSolutionEquation(Equation):
 	
 	# def __init__( self, start, end, freqMult, offset ):
