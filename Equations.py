@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractmethod
+import math
 
 class Equation:
 	
@@ -14,7 +15,7 @@ class Equation:
 		pass
 	
 
-# an equation of the type f(x) = mx + b
+# f(x) = mx + b
 # this version solves for x
 class LinearEquationX(Equation):
 	
@@ -29,7 +30,7 @@ class LinearEquationX(Equation):
 	def toString(self):
 		return '{0} = {1}*x + {2}'.format( *(self.known, self.slope, self.offset) )
 
-# an equation of the type f(x) = mx + b
+# f(x) = mx + b
 # this version solves for f(x)
 class LinearEquationY(Equation):
 	
@@ -43,6 +44,26 @@ class LinearEquationY(Equation):
 	
 	def toString(self):
 		return 'f(x) = {0}*{1} + {2}'.format( *(self.slope, self.known, self.offset) )
+
+# 
+
+# (x-h)^2 + (y-k)^2 = r^2\
+# solves for y with a vertical line
+class CircleVerticleLineEquation(Equation):
+	
+	def __init__( self, h, k, r, lineX ):
+		self.h = h
+		self.k = k
+		self.radius = r
+		self.lineX = lineX
+	
+	def solve(self):
+		term = math.sqrt( self.radius**2 - self.lineX**2 + 2*self.lineX*self.h - self.h**2 )
+		return ( self.k + term, self.k - term )
+	
+	def toString(self):
+		return '({0} - {1})^2 + (y-{2})^2 = {3}^2'.format( *(self.lineX, self.h, self.k, self.radius) )
+	
 
 # class SineSolutionEquation(Equation):
 	
