@@ -47,7 +47,7 @@ class LinearEquationY(Equation):
 		return 'f(x) = {0}*{1} + {2}'.format( *(self.slope, self.known, self.offset) )
 
 
-# (x-h)^2 + (y-k)^2 = r^2\
+# (x-h)^2 + (y-k)^2 = r^2
 # solves for y with a vertical line
 class CircleVerticleLineEquation(Equation):
 	
