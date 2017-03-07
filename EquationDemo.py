@@ -11,10 +11,7 @@ print(quadFunc.toString())
 print(quadFunc.solve())
 
 # (x-h)^2 + (y-k)^2 = r^2
-circFunc = Eqs.CircleVerticleLineEquation ( 2, 0, 1, 2.5 )
+circFunc = Eqs.CircleVerticleLineEquation ( 2, 2, 1, 2.5 )
 print(circFunc.toString())
 print(circFunc.solve())
 
-while True:
-	pass
-	
