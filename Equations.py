@@ -25,7 +25,7 @@ class LinearEquationX(Equation):
 		self.known = fx
 	
 	def solve(self):
-		return ( ( self.known - self.offset ) / self.slope, )
+		return ( ( self.known - self.offset ) / self.slope )
 	
 	def toString(self):
 		return '{0} = {1}*x + {2}'.format( *(self.known, self.slope, self.offset) )
@@ -41,7 +41,7 @@ class LinearEquationY(Equation):
 		self.known = x
 	
 	def solve(self):
-		return ( self.known * self.slope + self.offset, )
+		return ( self.known * self.slope + self.offset )
 	
 	def toString(self):
 		return 'f(x) = {0}*{1} + {2}'.format( *(self.slope, self.known, self.offset) )
@@ -109,7 +109,7 @@ class QuadraticEquationY(Equation):
 		self.known = x
 		
 	def solve(self):
-		return ( (self.known ** 2) * self.slope + self.offset, )
+		return ( (self.known ** 2) * self.slope + self.offset )
 		
 	def toString(self):
 		return 'f(x) = {0}*{1}^2 + {2}'.format( *( self.slope, self.known, self.offset) )
