@@ -10,7 +10,7 @@ def checkIfCorrect( answer, equation ):
 	
 	if isinstance( solution, float ) or isinstance( solution, int ):
 		correct = ( solution == ans )
-	else if isinstance( solution, list ):
+	elif isinstance( solution, list ):
 		for k in equation.solve():
 			if round( k, 3 ) == ans:
 				correct = True
@@ -22,24 +22,24 @@ def getInput():
 	userInput = input('Please enter the correct answer for the unknown variable: ')
 	return userInput
 	
-def chooseEquation
+def chooseEquation():
 	random.seed()
-	eqsChosen = random.randint (1, 4)
+	eqsChosen = random.randint (1, 1)
 	print (eqsChosen)
 	if eqsChosen == 1:
+		chosenEq = lineFunc
 		lineFunc()
-	else:
 	
 # f(x) = mx + b
-def lineFunc()
+def lineFunc():
 	lineFunc = eqs.LinearEquationY ( 10, 1, 15 )
 	print(lineFunc.toString())
 
-
+chooseEquation()
 
 # Check input against real answer
 userInput = getInput()
-check = checkIfCorrect(userInput, lineFunc)
+check = checkIfCorrect(userInput, chosenEq)
 
 if check:
 	print ("Good job!")
