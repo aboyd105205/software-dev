@@ -4,7 +4,7 @@ import Equations as eqs
 
 def getInput():
 	userInput = input('Please enter the correct answer for the unknown variable: ')
-	return int(userInput)
+	return userInput
 	
 def checkIfCorrect( answer, equation ):
 	return answer == equation.solve()
