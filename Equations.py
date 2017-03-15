@@ -25,7 +25,7 @@ class LinearEquationX(Equation):
 		self.known = fx
 	
 	def solve(self):
-		return ( ( self.known - self.offset ) / self.slope )
+		return ( self.known - self.offset ) / self.slope
 	
 	def toString(self):
 		return '{0} = {1}*x + {2}'.format( *(self.known, self.slope, self.offset) )
@@ -41,7 +41,7 @@ class LinearEquationY(Equation):
 		self.known = x
 	
 	def solve(self):
-		return ( self.known * self.slope + self.offset )
+		return self.known * self.slope + self.offset
 	
 	def toString(self):
 		return 'f(x) = {0}*{1} + {2}'.format( *(self.slope, self.known, self.offset) )
@@ -59,7 +59,7 @@ class CircleVerticleLineEquation(Equation):
 	
 	def solve(self):
 		term = math.sqrt( self.radius**2 - self.lineX**2 + 2*self.lineX*self.h - self.h**2 )
-		return ( self.k + term, self.k - term )
+		return [ self.k + term, self.k - term ]
 	
 	def toString(self):
 		return '({0} - {1})^2 + (y-{2})^2 = {3}^2'.format( *(self.lineX, self.h, self.k, self.radius) )
@@ -76,7 +76,7 @@ class CircleHorizontalLineEquation(Equation):
 	
 	def solve(self):
 		term = math.sqrt( self.radius**2 - self.lineY**2 + 2*self.lineY*self.k - self.k**2 )
-		return ( self.h + term, self.h - term )
+		return [ self.h + term, self.h - term ]
 	
 	def toString(self):
 		return '(x - {0})^2 + ({1}-{2})^2 = {3}^2'.format( *(self.h, self.lineY, self.k, self.radius) )
@@ -93,7 +93,7 @@ class QuadraticEquationX(Equation):
 		
 	def solve(self):
 		temp = math.sqrt(((self.known - self.offset) / self.slope))
-		return (temp, -temp)
+		return [temp, -temp]
 		
 	def toString(self):
 		return '{0} = {1}*x ^2 + {2}'.format( *( self.known, self.slope, self.offset) )
@@ -109,7 +109,7 @@ class QuadraticEquationY(Equation):
 		self.known = x
 		
 	def solve(self):
-		return ( (self.known ** 2) * self.slope + self.offset )
+		return (self.known ** 2) * self.slope + self.offset
 		
 	def toString(self):
 		return 'f(x) = {0}*{1}^2 + {2}'.format( *( self.slope, self.known, self.offset) )
