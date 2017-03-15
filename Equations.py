@@ -66,7 +66,7 @@ class CircleVerticleLineEquation(Equation):
 
 # (x-h)^2 + (y-k)^2 = r^2
 # solves for x with a horizontal line
-class CircleVerticleLineEquation(Equation):
+class CircleHorizontalLineEquation(Equation):
 	
 	def __init__( self, h, k, r, lineY ):
 		self.h = h
