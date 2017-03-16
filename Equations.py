@@ -20,6 +20,8 @@ class Equation:
 class LinearEquationX(Equation):
 	
 	def __init__( self, m, b, fx ):
+		if m == 0:
+			raise( Exception( 'Slope cannot be 0' ) )
 		self.slope = m
 		self.offset = b
 		self.known = fx

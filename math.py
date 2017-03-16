@@ -1,3 +1,4 @@
+import sys
 import random
 import Equations as eqs
 import math
@@ -38,6 +39,10 @@ def main():
 
 	def getInput():
 		userInput = input('Please enter the correct answer for the unknown variable: ')
+		
+		if userInput == "quit":
+			sys.exit()
+		
 		while True:
 			try:
 				userInput = float(userInput)
@@ -52,6 +57,10 @@ def main():
 		randNum1 = random.randint (-20, 20)
 		randNum2 = random.randint (-20, 20)
 		randNum3 = random.randint (-20, 20)
+		
+		while randNum1 == 0:
+			randNum1 = random.randint(-20, 20)
+		
 		if eqsChosen == 1:
 			chosenEq = lineFuncY(randNum1, randNum2, randNum3)
 			return chosenEq
@@ -62,13 +71,14 @@ def main():
 	chosenEq = chooseEquation()
 
 	# Check input against real answer
-	userInput = getInput()
+	userInput = getInput()	
 	check = checkIfCorrect(userInput, chosenEq)
-	correct = chosenEq.solve()
+	correct = round( chosenEq.solve(), 3 )
 
 	if check:
 		print ("Good job!")
 	else:
 		print ("Sorry, that's the wrong answer. It was actually {0}.".format (correct))
 
-main()
+while True:
+	main()
