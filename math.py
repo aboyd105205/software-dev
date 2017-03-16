@@ -6,12 +6,19 @@ def main():
 
 	# Section for equation functions
 	
-	# f(x) = mx + b
-	def lineFunc(num1, num2, num3):
-		lineFunc = eqs.LinearEquationY (num1, num2, num3)
-		print(lineFunc.toString())
-		return lineFunc
-
+	# f(x) = mx + b, solve for f(x)
+	def lineFuncY(num1, num2, num3):
+		lineFuncY = eqs.LinearEquationY(num1, num2, num3)
+		print(lineFuncY.toString())
+		return lineFuncY
+	#f(x) = mx + b, solve for x
+	def lineFuncX(num1, num2, num3):
+		lineFuncX = eqs.LinearEquationX(num1, num2, num3)
+		print(lineFuncX.toString())
+		return lineFuncX
+		
+		
+		
 	# Computing section
 	def checkIfCorrect( answer, equation ):
 		
@@ -41,12 +48,15 @@ def main():
 		
 	def chooseEquation():
 		random.seed()
-		eqsChosen = random.randint (1, 1)
+		eqsChosen = random.randint (1, 2)
 		randNum1 = random.randint (-20, 20)
 		randNum2 = random.randint (-20, 20)
 		randNum3 = random.randint (-20, 20)
 		if eqsChosen == 1:
-			chosenEq = lineFunc(randNum1, randNum2, randNum3)
+			chosenEq = lineFuncY(randNum1, randNum2, randNum3)
+			return chosenEq
+		elif eqsChosen == 2:
+			chosenEq = lineFuncX(randNum1, randNum2, randNum3)
 			return chosenEq
 
 	chosenEq = chooseEquation()
