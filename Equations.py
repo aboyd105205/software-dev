@@ -15,6 +15,11 @@ class Equation:
 		pass
 
 
+def sign(n):
+	if n == 0:
+		return 0
+	return n/abs(n)
+
 # f(x) = mx + b
 # this version solves for x
 class LinearEquationX(Equation):
@@ -92,13 +97,15 @@ class QuadraticEquationX(Equation):
 		self.slope = m
 		self.offset = b
 		self.known = fx
+		if sign(fx-b) != sign(m):
+			self.slope = -m
 		
 	def solve(self):
 		temp = math.sqrt(((self.known - self.offset) / self.slope))
 		return [temp, -temp]
 		
 	def toString(self):
-		return '{0} = {1}*x ^2 + {2}'.format( *( self.known, self.slope, self.offset) )
+		return '{0} = {1}*x^2 + {2}'.format( *( self.known, self.slope, self.offset) )
 
 		
 # an equation of the type f(x) = mx^2 + b
