@@ -17,18 +17,22 @@ def main():
 		lineFuncX = eqs.LinearEquationX(num1, num2, num3)
 		print(lineFuncX.toString())
 		return lineFuncX
-		
+	#f(x) = mx^2 + b, solve for x
+	def quadFuncX(num1, num2, num3):
+		quadFuncX = eqs.QuadraticEquationX(num1, num2, num3)
+		print(quadFuncX.toString())
+		return quadFuncX
 		
 		
 	# Computing section
 	def checkIfCorrect( answer, equation ):
 		
-		solution = round( equation.solve(), 3 )
+		solution = equation.solve()
 		ans = round( answer, 3 )
 		correct = False
 		
 		if isinstance( solution, float ) or isinstance( solution, int ):
-			correct = ( solution == ans )
+			correct = ( round(solution,3) == ans )
 		elif isinstance( solution, list ):
 			for k in equation.solve():
 				if round( k, 3 ) == ans:
@@ -43,29 +47,45 @@ def main():
 		if userInput == "quit":
 			sys.exit()
 		
+
 		while True:
 			try:
-				userInput = float(userInput)
+				userInput = float(eval(userInput))
 				break
-			except ValueError:
+			except (NameError,SyntaxError,ValueError):
 				userInput = input ("Please input an actual number: ")
 		return userInput
 		
-	def chooseEquation():
+	def rand():
 		random.seed()
-		eqsChosen = random.randint (1, 2)
-		randNum1 = random.randint (-20, 20)
-		randNum2 = random.randint (-20, 20)
-		randNum3 = random.randint (-20, 20)
+		rando = random.randint (-20, 20)
+		while rando == 0:
+			rando = random.randint (-20, 20)
+		return rando
+	
+	def sign(n):
+		return int(n / abs(n))
+	
+	def listToString( l ):
+		length = len(l)
+		string = ""
+		for i in range(length-1):
+			string = string + str(l[i]) + ", "
+		string = string + "or " + str(l[length-1])
+		return string
 		
-		while randNum1 == 0:
-			randNum1 = random.randint(-20, 20)
+	
+	def chooseEquation():
+		eqsChosen = random.randint (3, 3)
 		
 		if eqsChosen == 1:
-			chosenEq = lineFuncY(randNum1, randNum2, randNum3)
+			chosenEq = lineFuncY(rand(), rand(), rand())
 			return chosenEq
 		elif eqsChosen == 2:
-			chosenEq = lineFuncX(randNum1, randNum2, randNum3)
+			chosenEq = lineFuncX(rand(), rand(), rand())
+			return chosenEq
+		elif eqsChosen == 3:
+			chosenEq = quadFuncX(rand(),rand(),rand())
 			return chosenEq
 
 	chosenEq = chooseEquation()
@@ -73,12 +93,15 @@ def main():
 	# Check input against real answer
 	userInput = getInput()	
 	check = checkIfCorrect(userInput, chosenEq)
-	correct = round( chosenEq.solve(), 3 )
+	correct = chosenEq.solve()
 
 	if check:
 		print ("Good job!")
 	else:
-		print ("Sorry, that's the wrong answer. It was actually {0}.".format (correct))
+		if  isinstance(correct,float) or isinstance(correct,int):
+			print ("Sorry, that's the wrong answer. It was actually {0}.".format (correct))
+		elif isinstance(correct,list):
+			print ("Sorry, that's the wrong answer. It was actually {0}.".format (listToString(correct)))	
 
 while True:
 	main()
