@@ -76,16 +76,19 @@ def main():
 		
 	
 	def chooseEquation():
-		eqsChosen = random.randint (3, 3)
+		eqsChosen = random.randint (1, 3)
+		num1 = rand()
+		num2 = rand()
+		num3 = rand()
 		
 		if eqsChosen == 1:
-			chosenEq = lineFuncY(rand(), rand(), rand())
+			chosenEq = lineFuncY(num1, num2, num3)
 			return chosenEq
 		elif eqsChosen == 2:
-			chosenEq = lineFuncX(rand(), rand(), rand())
+			chosenEq = lineFuncX(num1, num2, num3)
 			return chosenEq
 		elif eqsChosen == 3:
-			chosenEq = quadFuncX(rand(),rand(),rand())
+			chosenEq = quadFuncX(num1,num2,num3)
 			return chosenEq
 
 	chosenEq = chooseEquation()
