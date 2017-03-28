@@ -2,8 +2,14 @@ import sys
 import random
 import Equations as eqs
 import math
+import tkinter as tk
+random.seed()
 
 def main():
+	print ()
+	print ("You will be given a random mix of linear and quadratic equations in which some will have you solve for X, and others for Y.")
+	print ("To exit, simply type 'quit' and round all answers to the thousandths place if neccessary.")
+	print ()
 
 	# Section for equation functions
 	
@@ -57,7 +63,6 @@ def main():
 		return userInput
 		
 	def rand():
-		random.seed()
 		rando = random.randint (-20, 20)
 		while rando == 0:
 			rando = random.randint (-20, 20)
@@ -77,34 +82,42 @@ def main():
 	
 	def chooseEquation():
 		eqsChosen = random.randint (1, 3)
-		num1 = rand()
-		num2 = rand()
-		num3 = rand()
 		
 		if eqsChosen == 1:
-			chosenEq = lineFuncY(num1, num2, num3)
+			chosenEq = lineFuncY(rand(), rand(), rand())
 			return chosenEq
 		elif eqsChosen == 2:
-			chosenEq = lineFuncX(num1, num2, num3)
+			chosenEq = lineFuncX(rand(), rand(), rand())
 			return chosenEq
 		elif eqsChosen == 3:
-			chosenEq = quadFuncX(num1,num2,num3)
+			chosenEq = quadFuncX(rand(), rand(), rand())
 			return chosenEq
 
-	chosenEq = chooseEquation()
+	# Actual user interaction
+	while True:
+		chosenEq = chooseEquation()
+		userInput = getInput()	
+		check = checkIfCorrect(userInput, chosenEq)
+		correct = chosenEq.solve()
 
-	# Check input against real answer
-	userInput = getInput()	
-	check = checkIfCorrect(userInput, chosenEq)
-	correct = chosenEq.solve()
+		if check:
+			print ("Good job!")
+		else:
+			if  isinstance(correct,float) or isinstance(correct,int):
+				print ("Sorry, that's the wrong answer. It was actually {0}.".format (correct))
+			elif isinstance(correct,list):
+				print ("Sorry, that's the wrong answer. It was actually {0}.".format (listToString(correct)))	
 
-	if check:
-		print ("Good job!")
-	else:
-		if  isinstance(correct,float) or isinstance(correct,int):
-			print ("Sorry, that's the wrong answer. It was actually {0}.".format (correct))
-		elif isinstance(correct,list):
-			print ("Sorry, that's the wrong answer. It was actually {0}.".format (listToString(correct)))	
+#-----------------------				
+				
+#Make the frame
+class thing(tk.Frame):
+	def __init__(self, master=None):
+		super().__init__(master)
+		self.pack()
+		self.create_widgets()
 
-while True:
-	main()
+	def create_widgets(self):
+		problemText["text"] = chosenEq
+
+main()
