@@ -23,6 +23,11 @@ def main():
 		lineFuncX = eqs.LinearEquationX(num1, num2, num3)
 		print(lineFuncX.toString())
 		return lineFuncX
+	#f(x) = mx^2 + b, solve for y
+	def quadFuncY(num1, num2, num3):
+		quadFuncY = eqs.QuadraticEquationY(num1, num2, num3)
+		print(quadFuncY.toString())
+		return quadFuncY
 	#f(x) = mx^2 + b, solve for x
 	def quadFuncX(num1, num2, num3):
 		quadFuncX = eqs.QuadraticEquationX(num1, num2, num3)
@@ -81,7 +86,7 @@ def main():
 		
 	
 	def chooseEquation():
-		eqsChosen = random.randint (1, 3)
+		eqsChosen = random.randint (1, 4)
 		
 		if eqsChosen == 1:
 			chosenEq = lineFuncY(rand(), rand(), rand())
@@ -90,6 +95,9 @@ def main():
 			chosenEq = lineFuncX(rand(), rand(), rand())
 			return chosenEq
 		elif eqsChosen == 3:
+			chosenEq = quadFuncY(rand(), rand(), rand())
+			return chosenEq
+		elif eqsChosen == 4:
 			chosenEq = quadFuncX(rand(), rand(), rand())
 			return chosenEq
 

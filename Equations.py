@@ -35,7 +35,7 @@ class LinearEquationX(Equation):
 		return ( self.known - self.offset ) / self.slope
 	
 	def toString(self):
-		return '{0} = {1}*x + {2}'.format( *(self.known, self.slope, self.offset) )
+		return '{0} = {1}x + {2}'.format( *(self.known, self.slope, self.offset) )
 
 
 # f(x) = mx + b
@@ -118,10 +118,10 @@ class QuadraticEquationY(Equation):
 		self.known = x
 		
 	def solve(self):
-		return (self.known ** 2) * self.slope + self.offset
+		return ((self.known ** 2) * self.slope) + self.offset
 		
 	def toString(self):
-		return 'f(x) = {0}{1}² + {2}'.format( *( self.slope, self.known, self.offset) )
+		return 'f(x) = {0}*{1}² + {2}'.format( *( self.slope, self.known, self.offset) )
 
 		
 # class SineSolutionEquation(Equation):
