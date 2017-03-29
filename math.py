@@ -4,7 +4,7 @@ import Equations as eqs
 import math
 
 def main():
-
+	
 	# Section for equation functions
 	
 	# f(x) = mx + b, solve for f(x)
@@ -22,8 +22,6 @@ def main():
 		quadFuncX = eqs.QuadraticEquationX(num1, num2, num3)
 		print(quadFuncX.toString())
 		return quadFuncX
-		
-		
 	# Computing section
 	def checkIfCorrect( answer, equation ):
 		
@@ -40,14 +38,19 @@ def main():
 					break
 		
 		return correct
-
+	
 	def getInput():
 		userInput = input('Please enter the correct answer for the unknown variable: ')
 		
-		if userInput == "quit":
-			sys.exit()
+		commands = {
+			"quit": lambda: sys.exit()
+		}
+                
+		try:
+			commands[userInput]()
+		except KeyError:
+				pass
 		
-
 		while True:
 			try:
 				userInput = float(eval(userInput))
@@ -55,7 +58,7 @@ def main():
 			except (NameError,SyntaxError,ValueError):
 				userInput = input ("Please input an actual number: ")
 		return userInput
-		
+	
 	def rand():
 		random.seed()
 		rando = random.randint (-20, 20)
@@ -64,7 +67,12 @@ def main():
 		return rando
 	
 	def sign(n):
-		return int(n / abs(n))
+		sign = 0
+		if n > 0:
+			sign = 1
+		elif n < 0:
+			sign = -1
+		return sign
 	
 	def listToString( l ):
 		length = len(l)
@@ -73,7 +81,6 @@ def main():
 			string = string + str(l[i]) + ", "
 		string = string + "or " + str(l[length-1])
 		return string
-		
 	
 	def chooseEquation():
 		eqsChosen = random.randint (1, 3)
@@ -90,14 +97,14 @@ def main():
 		elif eqsChosen == 3:
 			chosenEq = quadFuncX(num1,num2,num3)
 			return chosenEq
-
+                
 	chosenEq = chooseEquation()
-
+        
 	# Check input against real answer
 	userInput = getInput()	
 	check = checkIfCorrect(userInput, chosenEq)
 	correct = chosenEq.solve()
-
+        
 	if check:
 		print ("Good job!")
 	else:
