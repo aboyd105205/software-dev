@@ -2,8 +2,14 @@ import sys
 import random
 import Equations as eqs
 import math
+import tkinter as tk
+random.seed()
 
 def main():
+	
+	print ("\nYou will be given a random mix of linear and quadratic equations in which some will have you solve for X, and others for Y.")
+	print ("To exit, simply type 'quit' and round all answers to the thousandths place if neccessary.\n")
+	
 	
 	# Section for equation functions
 	
@@ -17,6 +23,11 @@ def main():
 		lineFuncX = eqs.LinearEquationX(num1, num2, num3)
 		print(lineFuncX.toString())
 		return lineFuncX
+	#f(x) = mx^2 + b, solve for y
+	def quadFuncY(num1, num2, num3):
+		quadFuncY = eqs.QuadraticEquationY(num1, num2, num3)
+		print(quadFuncY.toString())
+		return quadFuncY
 	#f(x) = mx^2 + b, solve for x
 	def quadFuncX(num1, num2, num3):
 		quadFuncX = eqs.QuadraticEquationX(num1, num2, num3)
@@ -60,7 +71,6 @@ def main():
 		return userInput
 	
 	def rand():
-		random.seed()
 		rando = random.randint (-20, 20)
 		while rando == 0:
 			rando = random.randint (-20, 20)
@@ -83,35 +93,44 @@ def main():
 		return string
 	
 	def chooseEquation():
-		eqsChosen = random.randint (1, 3)
-		num1 = rand()
-		num2 = rand()
-		num3 = rand()
+		eqsChosen = random.randint (1, 4)
 		
 		if eqsChosen == 1:
-			chosenEq = lineFuncY(num1, num2, num3)
+			chosenEq = lineFuncY(rand(), rand(), rand())
 			return chosenEq
 		elif eqsChosen == 2:
-			chosenEq = lineFuncX(num1, num2, num3)
+			chosenEq = lineFuncX(rand(), rand(), rand())
 			return chosenEq
 		elif eqsChosen == 3:
-			chosenEq = quadFuncX(num1,num2,num3)
+			chosenEq = quadFuncY(rand(), rand(), rand())
 			return chosenEq
-                
-	chosenEq = chooseEquation()
-        
-	# Check input against real answer
-	userInput = getInput()	
-	check = checkIfCorrect(userInput, chosenEq)
-	correct = chosenEq.solve()
-        
-	if check:
-		print ("Good job!")
-	else:
-		if  isinstance(correct,float) or isinstance(correct,int):
-			print ("Sorry, that's the wrong answer. It was actually {0}.".format (correct))
-		elif isinstance(correct,list):
-			print ("Sorry, that's the wrong answer. It was actually {0}.".format (listToString(correct)))	
+		elif eqsChosen == 4:
+			chosenEq = quadFuncX(rand(), rand(), rand())
+			return chosenEq
+	
+	# Actual user interaction
+	while True:
+		chosenEq = chooseEquation()
+		userInput = getInput()	
+		check = checkIfCorrect(userInput, chosenEq)
+		correct = chosenEq.solve()
+		
+		if check:
+			print ("Good job!")
+		else:
+			if  isinstance(correct,float) or isinstance(correct,int):
+				print ("Sorry, that's the wrong answer. It was actually {0}.".format(correct))
+			elif isinstance(correct,list):
+				print ("Sorry, that's the wrong answer. It was actually {0}.".format(listToString(correct)))	
 
-while True:
-	main()
+#Make the frame
+class thing(tk.Frame):
+	def __init__(self, master=None):
+		super().__init__(master)
+		self.pack()
+		self.create_widgets()
+
+	def create_widgets(self):
+		problemText["text"] = chosenEq
+
+main()
