@@ -18,7 +18,10 @@ class Equation:
 def sign(n):
 	if n == 0:
 		return 0
-	return n/abs(n)
+	elif n > 0:
+		return 1
+	else:
+		return -1
 
 # f(x) = mx + b
 # this version solves for x
