@@ -3,35 +3,69 @@ import random
 import Equations as eqs
 import math
 import tkinter as tk
+import tkinter.messagebox as msgs
 random.seed()
 
 def main():
 	
-	print ("\nYou will be given a random mix of linear and quadratic equations in which some will have you solve for X, and others for Y.")
-	print ("To exit, simply type 'quit' and round all answers to the thousandths place if neccessary.\n")
+	# UI
 	
+	#Make the frame
+	class UserInterface(tk.Frame):
+		def __init__(self, master=None):
+			super().__init__(master)
+			self.pack()
+			self.create_widgets()
+			self.buttonlistener = 0
+			self.minsize( 512,512 )
+		
+		def incrementButton():
+			self.buttonlistener = self.buttonlistener + 1
+		
+		def create_widgets(self):
+			
+			self.EntryBox = tk.Entry( self )
+			self.EntryBox.pack( side = "bottom" )
+			self.EntryBox["geometry"] = "128x32"
+			
+			self.Enter = tk.Button( self, text = "enter" )
+			self.Enter.command = self.incrementButton
+			self.Enter.pack( side = "right" )
+			self.Enter["geometry"] = "32x32"
+			
+			self.TextDisplay = tk.Label( self, text="---------------" )
+			self.TextDisplay.pack()
+			self.TextDisplay["geometry"] = "160x32"
+			
+		def SetDisplay( str ):
+			self.TextDisplay.text = str
+		
+		def GetButtonValue():
+			return self.buttonlistener
+		
+		def GetInput():
+			return self.EntryBox.get()
+		
+	def Msg( str ):
+		msgs.showinfo( "", str )
 	
 	# Section for equation functions
 	
 	# f(x) = mx + b, solve for f(x)
 	def lineFuncY(num1, num2, num3):
 		lineFuncY = eqs.LinearEquationY(num1, num2, num3)
-		print(lineFuncY.toString())
 		return lineFuncY
 	#f(x) = mx + b, solve for x
 	def lineFuncX(num1, num2, num3):
 		lineFuncX = eqs.LinearEquationX(num1, num2, num3)
-		print(lineFuncX.toString())
 		return lineFuncX
 	#f(x) = mx^2 + b, solve for y
 	def quadFuncY(num1, num2, num3):
 		quadFuncY = eqs.QuadraticEquationY(num1, num2, num3)
-		print(quadFuncY.toString())
 		return quadFuncY
 	#f(x) = mx^2 + b, solve for x
 	def quadFuncX(num1, num2, num3):
 		quadFuncX = eqs.QuadraticEquationX(num1, num2, num3)
-		print(quadFuncX.toString())
 		return quadFuncX
 	# Computing section
 	def checkIfCorrect( answer, equation ):
@@ -52,15 +86,6 @@ def main():
 	
 	def getInput():
 		userInput = input('Please enter the correct answer for the unknown variable: ')
-		
-		commands = {
-			"quit": lambda: sys.exit()
-		}
-                
-		try:
-			commands[userInput]()
-		except KeyError:
-				pass
 		
 		while True:
 			try:
@@ -109,28 +134,45 @@ def main():
 			return chosenEq
 	
 	# Actual user interaction
+	state = "setupEq"
+	
+	Msg("\nYou will be given a random mix of linear and quadratic equations in which some will have you solve for X, and others for Y.")
+	
+	userInput = ""
+	
+	ui = UserInterface(tk.Tk())
+	ui.mainloop()
+	
+	chosenEq = False
+	buttonValue = False
+	
+	
 	while True:
-		chosenEq = chooseEquation()
-		userInput = getInput()	
-		check = checkIfCorrect(userInput, chosenEq)
-		correct = chosenEq.solve()
 		
-		if check:
-			print ("Good job!")
-		else:
-			if  isinstance(correct,float) or isinstance(correct,int):
-				print ("Sorry, that's the wrong answer. It was actually {0}.".format(correct))
-			elif isinstance(correct,list):
-				print ("Sorry, that's the wrong answer. It was actually {0}.".format(listToString(correct)))	
-
-#Make the frame
-class thing(tk.Frame):
-	def __init__(self, master=None):
-		super().__init__(master)
-		self.pack()
-		self.create_widgets()
-
-	def create_widgets(self):
-		problemText["text"] = chosenEq
-
+		if state=="setupEq":
+			
+			chosenEq = chooseEquation()
+			userInput = getInput()
+			
+			ui.SetDisplay( chosenEq.toString() )
+		
+		elif state=="input":
+			
+			if buttonValue != ui.GetButtonValue():
+				buttonValue = ui.GetButtonValue()
+				userInput = ui.GetInput()
+				state = "check"
+		
+		elif state=="check":
+			
+			check = checkIfCorrect( float(eval(userInput)), chosenEq )
+			
+			if check:
+				Msg("Good job!")
+				state = "setupEq"
+			else:
+				if  isinstance(correct,float) or isinstance(correct,int):
+					Msg("Sorry, that's the wrong answer. It was actually {0}.".format(correct))
+				elif isinstance(correct,list):
+					Msg("Sorry, that's the wrong answer. It was actually {0}.".format(listToString(correct)))	
 main()
